@@ -1,0 +1,13 @@
+server:
+  port: 5000
+  shutdown: graceful
+
+spring:
+  application:
+    name: converter
+
+api:
+  currency:
+    url: https://api.coinbase.com/v2/currencies
+  exchange-rates:
+    url: https://api.coinbase.com/v2/exchange-rates
