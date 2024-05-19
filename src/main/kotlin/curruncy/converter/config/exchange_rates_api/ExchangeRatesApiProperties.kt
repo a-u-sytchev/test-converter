@@ -1,9 +1,9 @@
 package curruncy.converter.config.exchange_rates_api
 
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Component
+import org.springframework.boot.context.properties.ConfigurationProperties
 
-@Component
+@ConfigurationProperties("api.exchange-rates")
 data class ExchangeRatesApiProperties(
-    @Value("\${api.exchange-rates.url}") val url: String
+    val url: String,
+    val timeout: Long
 )

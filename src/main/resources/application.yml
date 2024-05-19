@@ -8,6 +8,8 @@ spring:
 
 api:
   currency:
-    url: https://api.coinbase.com/v2/currencies
+    url: https://api.coinbase.com/v2/
+    timeout: 3000 # ms
   exchange-rates:
-    url: https://api.coinbase.com/v2/exchange-rates
+    url: https://api.coinbase.com/v2/
+    timeout: 3000 # ms

@@ -5,6 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.4"
 	kotlin("jvm") version "1.9.23"
 	kotlin("plugin.spring") version "1.9.23"
+	kotlin("plugin.serialization") version "1.9.24"
 }
 
 group = "curruncy"
@@ -19,10 +20,18 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	// implementation("com.fasterxml.jackson.module:jackson-module-kotlin") Сериализация меняется с jackson на kotlinx
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("io.projectreactor:reactor-test")
+
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
