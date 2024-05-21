@@ -1,6 +1,6 @@
 package curruncy.converter.domain.validator
 
-import curruncy.converter.repository.CurrencyRepository
+import curruncy.converter.repository.CurrencyProvider
 import jakarta.validation.Constraint
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext
@@ -20,10 +20,10 @@ annotation class CurrencyId(
 )
 
 class CurrencyIdValidator(
-    private val currencyRepository: CurrencyRepository
+    private val currencyProvider: CurrencyProvider,
 ): ConstraintValidator<CurrencyId, String> {
     override fun isValid(value: String, context: ConstraintValidatorContext): Boolean {
-        return currencyRepository.getCurrencyIdList().contains(value)
+        return currencyProvider.currencyList().any { it.id == value }
     }
 }
 
@@ -40,9 +40,9 @@ annotation class CurrencyIdList(
 )
 
 class CurrencyIdListValidator(
-    private val currencyRepository: CurrencyRepository
-): ConstraintValidator<CurrencyIdList, List<String>> {
-    override fun isValid(value: List<String>, context: ConstraintValidatorContext): Boolean {
-        return currencyRepository.getCurrencyIdList().containsAll(value)
+    private val currencyProvider: CurrencyProvider,
+): ConstraintValidator<CurrencyIdList, Set<String>> {
+    override fun isValid(value: Set<String>, context: ConstraintValidatorContext): Boolean {
+        return currencyProvider.currencyList().map { it.id }.containsAll(value)
     }
 }

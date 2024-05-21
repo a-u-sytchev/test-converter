@@ -7,9 +7,13 @@ spring:
     name: converter
 
 api:
-  currency:
-    url: https://api.coinbase.com/v2/
-    timeout: 3000 # ms
-  exchange-rates:
-    url: https://api.coinbase.com/v2/
-    timeout: 3000 # ms
+  coinbase:
+    base-url: https://api.coinbase.com/v2/
+    timeout: 3s
+
+cache:
+  currency-list:
+    expire-after-write: 1m
+  currency-rate:
+    maximum-size: 1024
+    expire-after-write: 1m

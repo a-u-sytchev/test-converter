@@ -6,7 +6,7 @@ URL https://localhost:5000/api/v1/
 URI `/exchange`
 Параметры:
 * `sourceCurrency`: идентификатор исходной валюты.
-*`targetCurrency`: идентификатор целевой валюты. Можно указать 1 или несколько.
+* `targetCurrency`: идентификатор целевой валюты. Можно указать 1 или несколько.
 * `amount`: сумма исходной валюты для конвертации в целевую(-ые). Можно указать как целое число, так и десятичное. Не может быть меньше нуля.
 
 
@@ -26,7 +26,7 @@ GET http://localhost:5000/api/v1/exchange?sourceCurrency=RUB&targetCurrency=USD&
 ]
 ```
 
-GET http://localhost:5000/api/v1/exchange?sourceCurrency=RUB&targetCurrency=BYN&targetCurrency=USD&targetCurrency=EUR&&amount=132.78
+GET http://localhost:5000/api/v1/exchange?sourceCurrency=RUB&targetCurrency=BYN&targetCurrency=USD&targetCurrency=EUR&amount=132.78
 ```json
 [
   {

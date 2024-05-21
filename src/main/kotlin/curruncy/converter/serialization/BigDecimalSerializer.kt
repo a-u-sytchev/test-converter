@@ -1,4 +1,4 @@
-package curruncy.converter.config.serializer
+package curruncy.converter.serialization
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
