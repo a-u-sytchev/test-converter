@@ -15,11 +15,7 @@ class ExchangeController(
 
     @GetMapping
     suspend fun getCalculatedConversionCostForTargetCurrencies(
-           @Valid data: ConvertCurrencyRequest): ResponseEntity<*> {
-        return try {
-            ResponseEntity.ok(currencyExchangeCalculator.calculateConversionCostForTargetCurrencies(data))
-        } catch (e: IllegalArgumentException) {
-            ResponseEntity.badRequest().body(e.message)
-        }
+            @Valid data: ConvertCurrencyRequest): ResponseEntity<*> {
+        return ResponseEntity.ok(currencyExchangeCalculator.calculateConversionCostForTargetCurrencies(data))
     }
 }
