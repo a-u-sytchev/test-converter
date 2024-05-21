@@ -13,6 +13,10 @@ class CurrencyApiClientConfig(
     val props: CurrencyApiProperties
 ) {
 
+    /**
+     * FIXME: У тебя один API-endpoint, но ты зачем-то создаешь для него два клиента и два конфига.
+     * FIXME: Предыдущее замечание про инкапсуляцию вызовов в отдельном классе осталось непонятым.
+     */
     @Bean("currencyApiReactiveClient")
     fun currencyApiReactiveClient(): WebClient {
         return WebClient.builder()
@@ -32,6 +36,8 @@ class CurrencyApiClientConfig(
          .awaitBody() необходимо сделать метод isValid() suspended fun.
 
          В то же время, WebClient можно будет использовать в том же репозитории, там где потребуется реактивное получение данных.
+
+         FIXME: В Kotlin есть обертка `runBlocking {...}` для вызова suspend-методов из обычных.
     */
     @Bean("currencyApiRestClient")
     fun currencyApiRestClient(): RestClient {

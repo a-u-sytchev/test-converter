@@ -22,6 +22,10 @@ annotation class CurrencyId(
 class CurrencyIdValidator(
     private val currencyRepository: CurrencyRepository
 ): ConstraintValidator<CurrencyId, String> {
+    /**
+     * FIXME: Если в API не указать параметр `sourceCurrency`, то возникает ошибка
+     *        `java.lang.NullPointerException: Parameter specified as non-null is null: method curruncy.converter.domain.validator.CurrencyIdValidator.isValid, parameter value`
+     */
     override fun isValid(value: String, context: ConstraintValidatorContext): Boolean {
         return currencyRepository.getCurrencyIdList().contains(value)
     }
@@ -42,6 +46,10 @@ annotation class CurrencyIdList(
 class CurrencyIdListValidator(
     private val currencyRepository: CurrencyRepository
 ): ConstraintValidator<CurrencyIdList, List<String>> {
+    /**
+     * FIXME: Если в API не указать параметр `targetCurrency`, то возникает ошибка
+     *        `java.lang.NullPointerException: Parameter specified as non-null is null: method curruncy.converter.domain.validator.CurrencyIdListValidator.isValid, parameter value`
+     */
     override fun isValid(value: List<String>, context: ConstraintValidatorContext): Boolean {
         return currencyRepository.getCurrencyIdList().containsAll(value)
     }
