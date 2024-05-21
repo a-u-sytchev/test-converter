@@ -7,6 +7,7 @@ spring:
     name: converter
 
 api:
+  # FIXME: Одно и то же конфигурируется два раза.
   currency:
     url: https://api.coinbase.com/v2/
     timeout: 3000 # ms
