@@ -1,22 +1,30 @@
 package curruncy.converter.services.currency
 
-import curruncy.converter.domain.currency.ConvertCurrencyRequest
-import curruncy.converter.domain.currency.ConvertedTargetCurrencyAmount
-import curruncy.converter.repository.ExchangeRatesRepository
+import curruncy.converter.repository.CurrencyProvider
+import curruncy.converter.rest.io.ConvertedTargetCurrencyAmount
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
 import java.math.RoundingMode
-
 
 @Service
 class CurrencyExchangeCalculator(
-    val exchangeRatesRepository: ExchangeRatesRepository
+    private val currencyProvider: CurrencyProvider,
 ) {
-    suspend fun calculateConversionCostForTargetCurrencies(data: ConvertCurrencyRequest): List<ConvertedTargetCurrencyAmount> {
-        val exchangeRates = exchangeRatesRepository.getExchangeRatesByCurrency(data.sourceCurrency)
-        return data.targetCurrency.map { ConvertedTargetCurrencyAmount(
-            it,
-            exchangeRates.rates[it]?.multiply(data.amount)?.setScale(2, RoundingMode.FLOOR)
-                ?: throw IllegalArgumentException("Не обнаружена целевая валюта \"$it\" в списке котировок для исходной валюты \"${exchangeRates.currency}\".")
-        ) }
+    suspend fun calculateConversionCostForTargetCurrencies(
+        sourceCurrencyId: String,
+        targetCurrencyId: Set<String>,
+        amount: BigDecimal,
+    ): List<ConvertedTargetCurrencyAmount> {
+        val exchangeRates = currencyProvider.rates(sourceCurrencyId)
+
+        return targetCurrencyId.map {
+            ConvertedTargetCurrencyAmount(
+                it,
+                exchangeRates[it]
+                    ?.multiply(amount)
+                    ?.setScale(2, RoundingMode.FLOOR)
+                    ?: throw IllegalArgumentException("Не обнаружена целевая валюта \"$it\" в списке котировок для исходной валюты \"$sourceCurrencyId\".")
+            )
+        }
     }
 }
